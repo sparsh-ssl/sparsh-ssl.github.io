@@ -3,6 +3,10 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+.model {
+  font-family: monospace;
+  font-weight: bold;
+}
 
 .footer .icon-link {
     font-size: 1em;
@@ -32,7 +36,7 @@ body {
 
 .teaser video {
   object-fit: fill;
-  
+
 }
 #glass{
   margin-left: -10px;
@@ -269,7 +273,7 @@ hr.rounded {
 
 .bibtex {
   font-family: "Courier", monospace;
-  font-size: 0.7em !important;
+  font-size: 0.9em !important;
   color: #2f2f2f;
   background-color: #f2f2f2;
   border: 5px;
