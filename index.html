@@ -36,7 +36,7 @@
 
       console.log("updateBimanual", task)
 
-      var video = document.getElementById("bimanual-video");
+      var video = document.getElementById("field-video");
       video.src = "media/videos/" +
                   task +
                   ".mp4"
@@ -234,7 +234,7 @@
 <div class="rows">
   <h2 class="title is-3">Normal and shear field decoding</h2>
 
-  <p class="content has-text-justified">Using <span class="model">Sparsh</span>, you can obtain Normal and Force fields from a single tactile image.
+  <p class="content has-text-justified">Using <span class="model">Sparsh</span>, you can obtain Normal and Shear fields from a tactile history window.
     These could be used fed into policies for robot manipulation tasks or used for state estimation.
     </p>
 
@@ -243,6 +243,9 @@
           <div class="select is-rounded">
             <select id="field-video-menu" onchange="updateFieldVis()">
             <option value="tomato_dino" selected="selected">Tomato Can</option>
+            <option value="mug_dino">Mug</option>
+            <option value="sugar_dino">Sugar Box</option>
+            <option value="sphere_dino">Sphere 4mm</option>
             </select>
           </div>
       </div>
@@ -264,7 +267,7 @@
 <div class="rows">
   <h2 class="title is-3">Pose estimation</h2>
   <p class="content has-text-justified">
-    TODO text for pose estimation 
+    <span class="model">Sparsh</span> representations cab be used to estimate SE(2) transformations of the object relative to the sensor. We follow the regression-by-classification paradigm, where relative object poses are binned into a grid.
   </p>
   <div class="columns">
     <div class="column has-text-centered">
@@ -283,7 +286,9 @@
 <div class="rows">
   <h2 class="title is-3">Bead Maze</h2>
   <p class="content has-text-justified">
-    TODO: Text for this task 
+    <span class="model">Sparsh</span> representations can enable planning for manipulation. We adapt the Bead Maze task to robot policy learning, where the goal is to guide a bead from one end to another following the path of the wire. We use Diffusion Policy to train policies from a set of teleop demonstrations on different maze patterns, where the action space is delta joint angles for the robot arm.
+
+
   </p>
     <div class="columns">
       <div class="column has-text-centered">
@@ -314,7 +319,7 @@
 
 <hr class="rounded">
 
-<div class="rows">
+<!-- <div class="rows">
   <h2 class="title is-3">Folding Clothes with Novel Strategies</h2>
     <p class="content has-text-justified">
       The system can also generate novel strategies for the same task but under different scenarios.
@@ -355,11 +360,22 @@
         </p>
       </div>
     </div>
-</div>
+</div> -->
 
 <hr class="rounded">
 <h2 class="title is-3">Acknowledgments</h2>
 <p>
+  We thank Ishan Misra, Mahmoud Assran for insightful discussions on SSL for vision that informed this work, and Changhao Wang, Dhruv Batra, Jitendra Malik, Luis Pineda, Tess Hellebrekers for helpful discussions on the research. <br> <br>
+  We base our implementations on the following repositories: <br>
+  - <a href="https://github.com/real-stanford/diffusion_policy">Diffusion Policy</a> <br>
+  - <a href="https://github.com/facebookresearch/ijepa" target="_blank">IJEPA</a> <br>
+  - <a href="https://github.com/facebookresearch/jepa" target="_blank">VJEPA</a> <br>
+  - <a href="https://github.com/facebookresearch/dino/" target="_blank">DINO</a> <br>
+  - <a href="https://github.com/facebookresearch/mae" target="_blank">MAE</a> <br>
+</p>
+
+
+
   
 </p>
 <hr class="rounded">
