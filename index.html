@@ -159,11 +159,11 @@
         </div>
         <br>
         <h3 class="subtitle has-text-justified">
-        We present <span class="model">Sparsh</span>, a family of general touch representations, and build <span class="model">TacBench</span>,
-        a standardized benchmark consisting of five touch-centric tasks (<span class='model'>[T1]</span>-<span class="model">[T6]</span>)
-        covering prominent problems in vision-based tactile sensing. In evaluation (middle), we find <span class="model">Sparsh</span> trained via self-supervision on
+        We present <span class="model">Sparsh</span>, a family of general touch representations, and <span class="model">TacBench</span>,
+        a standardized benchmark consisting of six touch-centric tasks (<span class='model'>[T1]</span>-<span class="model">[T6]</span>)
+        covering prominent problems in vision-based tactile sensing. In evaluation (middle), we find <span class="model">Sparsh</span> trained with self-supervision on
         a dataset of 460k+ tactile images to generalize across tasks (right) and sensors (left) outperforming task and sensor specific
-        models (<span class='model'>E2E</span>). Results of <span class="model">[T1]</span>- <span class="model">[T5]</span> shown are trained with 33% of the labeled data, except <span class='model'>[T5]</span>, which is trained with 50% of demonstration data.
+        models (<span class='model'>E2E</span>). <span class="model">[T1]</span>- <span class="model">[T5]</span> and <span class="model">[T6]</span> are trained with 33% and 50% of the labeled data respectively.
         </h3>
       </div>
     </div>
@@ -175,26 +175,25 @@
     <h2 class="title is-3">Abstract</h2>
     <div class="content has-text-justified">
     <p>
-        In this work, we introduce general purpose touch representations for the increasingly accessible
+        In this work, we introduce general purpose touch representations for the increasingly accessible 
         class of vision-based tactile sensors. Such sensors have led to many recent advances in robot
-        manipulation as they markedly complement vision, yet solutions today often rely on task
-        and sensor specific handcrafted perception models. Collecting real data at scale with task
-        centric ground truth labels, like contact forces and slip, is a challenge further compounded
-        by sensors of various form factor differing in aspects like lighting and gel markings.
+        manipulation as they markedly complement vision, yet solutions today often rely on task 
+        and sensor specific handcrafted perception models. Collecting real data at scale with task 
+        centric ground truth labels, like contact forces and slip, is a challenge further compounded 
+        by sensors of various form factor differing in aspects like lighting and gel markings. 
     </p>
-
     <p>
-        To tackle this we turn to self-supervised learning (SSL) that has demonstrated remarkable
-        performance in computer vision. We present <span class="model">Sparsh</span>, a family of SSL models
-        that can support various vision-based tactile sensors, alleviating the need for custom labels
-        through pre-training on 460k+ tactile images with masking and self-distillation in pixel and latent spaces.
-        We also build <span class="model">TacBench</span>, to facilitate standardized benchmarking across sensors and models,
-        comprising of six tasks ranging from comprehending tactile properties to enabling physical
-        perception and manipulation planning. In evaluations, we find that SSL pre-training for
-        touch representation outperforms task and sensor-specific end-to-end training by 93.4%
-        on average over <span class='model'>TacBench</span>, and <span class="model">Sparsh (DINO)</span> and
-        <span class="model">Sparsh (IJEPA)</span> are the most competitive,
-        indicating the merits of learning in latent space for tactile images.
+        To tackle this we turn to self-supervised learning (SSL) that has demonstrated remarkable 
+        performance in computer vision. We present <span class="model">Sparsh</span>, a family of SSL models 
+        that can support various vision-based tactile sensors, alleviating the need for custom labels 
+        through pre-training on 460k+ tactile images with masking and self-distillation in pixel and latent spaces. 
+        We also build <span class="model">TacBench</span>, to facilitate standardized benchmarking across sensors and models, 
+        comprising of six tasks ranging from comprehending tactile properties to enabling physical 
+        perception and manipulation planning. In evaluations, we find that SSL pre-training for 
+        touch representation outperforms task and sensor-specific end-to-end training by 95.1%
+        on average over <span class="model">TacBench</span>, and <span class="model">Sparsh (DINO)</span>
+        <span class="model">Sparsh (IJEPA)</span> are the most competitive, 
+        indicating the merits of learning in latent space for tactile images. 
     </p>
     </div>
   </div>
@@ -298,9 +297,12 @@
       <div class="column has-text-centered">
         <div class="select is-rounded">
           <select id="inthewild-video-menu" onchange="updateInTheWild()">
-            <option value="dino_full_sdr_16x_overlay" selected="selected">DINO</option>
-          <option value="e2e_thirdsection_sdr_16x_overlay">E2E Section 3</option>
-          <option value="ijepa_thirdsection_sdr_16x_overlay">IJEPA Section 3</option>
+            <option value="dino_full_28052024_16x_overlay" selected="selected">DINO</option>
+            <option value="ijepa_full_28052024_16x_overlay">IJEPA</option>
+            <option value="mae_full_28052024_16x_overlay">MAE</option>
+            <option value="e2e_full_28052024_16x_overlay">End to End</option>
+            <option value="ijepa_thirdsection_sdr_16x_overlay">IJEPA (last 1/3 maze)</option>
+            <option value="e2e_thirdsection_sdr_16x_overlay">End to End (last 1/3 maze)</option>
           </select>
         </div>
       </div>
