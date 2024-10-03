@@ -27,7 +27,7 @@
       var video = document.getElementById("inthewild-video");
       video.src = "media/videos/" +
                   task +
-                  ".m4v"
+                  ".mp4"
       video.play();
     }
 
@@ -62,8 +62,6 @@
   </script>
 
 
-  <!-- <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet"> -->
   <link rel="stylesheet" href="./static/fonts/cmu_bright/cmun-bright.css">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -136,7 +134,7 @@
           </div>
           <br>
           <div class="affiliation-note">
-            <sup>*</sup> indicates equal contributions
+            <sup>*</sup> indicates equal contribution
           </div>
           <div class="button-container">
             <a href="./sparsh.pdf" target="_blank" class="button"><i class="fa-light fa-file"></i>&emsp14;PDF</a>
@@ -156,10 +154,6 @@
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered  is-centered">
-          <!-- <video id="teaser" autoplay muted loop controls height="100%" width="100%"> -->
-          <!--   <source src="media/videos/teaser.mp4" -->
-          <!--           type="video/mp4"> -->
-          <!-- </video> -->
             <img src="media/figures/teaser.png" class="teaser-image" />
           </br>
         </div>
@@ -222,9 +216,9 @@
   <h2 class="title is-3">Overview of Sparsh</h2>
   <img src="media/figures/ssl.png" class="method-image" />
   <p class="content has-text-justified">
-    First, to address the scarcity of labeled and even unlabeled data in the tactile domain, 
+    To address the scarcity of labeled and even unlabeled data in the tactile domain, 
     we curate together new and existing vision-based tactile sensor datasets totaling ~661k samples. 
-    Second, we investigate self-supervised learning approaches, such as Masked Autoencoding (MAE), Self-Distillation (DINO and DINOv2), 
+    Further, we investigate self-supervised learning approaches, such as Masked Autoencoding (MAE), Self-Distillation (DINO and DINOv2), 
     and Joint embedding Prediction (JEPA) to train the <span class="model">Sparsh</span> family of foundation models for general purpose touch representations. We find that background subtraction and tokenization 
     of a small temporal window (~80 ms) of tactile images are crucial for learning generalizable and effective representations. 
     We then evaluate the general-purpose utility of these representations on <span class="model">TacBench</span>, a benchmark of six tasks that span tactile perception.
@@ -235,8 +229,11 @@
 <div class="rows">
   <h2 class="title is-3">Normal and shear field decoding</h2>
 
-  <p class="content has-text-justified">Using <span class="model">Sparsh</span>, you can obtain Normal and Shear fields from a tactile history window.
-    These could be used fed into policies for robot manipulation tasks or used for state estimation.
+  <p class="content has-text-justified">
+    Using <span class="model">Sparsh</span>, one can obtain in realtime normal and shear fields from a stream of tactile sensor images
+    in realtime. To predict these fields, we train a DPT decoder given (frozen) latent representations from <span class="model">Sparsh</span> 
+    via photometric losses computed by warping tactile image frames using the predicted normal and shear forces.
+    These fields can be used to estimate contact location and normals and could be fed into policies for robot manipulation tasks or used for state estimation.
     </p>
 
     <div class="columns">
@@ -268,7 +265,10 @@
 <div class="rows">
   <h2 class="title is-3">Pose estimation</h2>
   <p class="content has-text-justified">
-    <span class="model">Sparsh</span> representations cab be used to estimate SE(2) transformations of the object relative to the sensor. We follow the regression-by-classification paradigm, where relative object poses are binned into a grid.
+    We also show that <span class="model">Sparsh</span> representations capture relative object pose information. 
+    To investigate this, we follow the <em>regression-by-classification</em> paradigm. Specifically, we probe the model 
+    with an <em>attentive probe</em>, to estimate SE(2) transformations of the object relative to the sensor. 
+    Further results can be found in our paper.
   </p>
   <div class="columns">
     <div class="column has-text-centered">
@@ -287,18 +287,20 @@
 <div class="rows">
   <h2 class="title is-3">Bead Maze</h2>
   <p class="content has-text-justified">
-    <span class="model">Sparsh</span> representations can enable planning for manipulation. We adapt the Bead Maze task to robot policy learning, where the goal is to guide a bead from one end to another following the path of the wire. We use Diffusion Policy to train policies from a set of teleop demonstrations on different maze patterns, where the action space is delta joint angles for the robot arm.
-
-
+    <span class="model">Sparsh</span> representations can enable planning for manipulation. 
+    We adapt the Bead Maze task to robot policy learning, where the goal is to guide a bead from one end to another 
+    following the path of the wire. Here, we use Diffusion Policy to train policies from a set of teleop demonstrations 
+    on different maze patterns. Given the tactile images, the policy predicts the joint angles for the Franka robot arm. 
+    We find that in general, policies trained with <span class="model">Sparsh</span> representations perform slightly better 
+    than training encoders end-to-end.
   </p>
     <div class="columns">
       <div class="column has-text-centered">
         <div class="select is-rounded">
           <select id="inthewild-video-menu" onchange="updateInTheWild()">
-            <option value="stow-book" selected="selected">Stow Book</option>
-          <option value="pour-tea">Pour Tea</option>
-          <option value="tape-box">Tape Box</option>
-          <option value="recycle-can">Recycle Can</option>
+            <option value="dino_full_sdr_16x_overlay" selected="selected">DINO</option>
+          <option value="e2e_thirdsection_sdr_16x_overlay">E2E Section 3</option>
+          <option value="ijepa_thirdsection_sdr_16x_overlay">IJEPA Section 3</option>
           </select>
         </div>
       </div>
@@ -316,71 +318,23 @@
     </div>
 </div>
 
-
-
-<hr class="rounded">
-
-<!-- <div class="rows">
-  <h2 class="title is-3">Folding Clothes with Novel Strategies</h2>
-    <p class="content has-text-justified">
-      The system can also generate novel strategies for the same task but under different scenarios.
-      Specifically, we investigate whether the same system can fold different types of clothing items.
-      Interestingly, we observe drastically different strategies across the clothing categories, many of which align with how humans might fold each garment.
-      Select a garment to see its folding strategy and its video.
-      The coloring of the keypoints indicates the folding order, where red keypoints are aligned first and the blue keypoints are aligned subsequently.
-    </p>
-    <div class="columns">
-      <div class="column has-text-centered">
-        <div class="select is-rounded">
-          <select id="clothes-video-menu" onchange="updateClothes()">
-            <option value="sweater" selected="selected">Sweater</option>
-          <option value="shirt">Shirt</option>
-          <option value="hoodie">Hoodie</option>
-          <option value="vest">Vest</option>
-          <option value="dress">Dress</option>
-          <option value="pants">Pants</option>
-          <option value="shorts">Shorts</option>
-          <option value="scarf">Scarf</option>
-          </select>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="columns">
-      <div class="column has-text-centered">
-        <p style="text-align:center;">
-          <img id="clothes-img" width="60%" src="media/fold-strategies/sweater.jpeg" class="method-image" />
-        </p>
-      </div>
-      <div class="column has-text-centered">
-        <p style="text-align:center;">
-          <video id="clothes-video" width="100%" height="100%" controls autoplay loop muted>
-            <source src="media/videos/fold-sweater.mp4" type="video/mp4">
-          </video>
-        </p>
-      </div>
-    </div>
-</div> -->
-
 <hr class="rounded">
 <h2 class="title is-3">Acknowledgments</h2>
 <p>
   We thank Ishan Misra, Mahmoud Assran for insightful discussions on SSL for vision that informed this work, and Changhao Wang, Dhruv Batra, Jitendra Malik, Luis Pineda, Tess Hellebrekers for helpful discussions on the research. <br> <br>
-  We base our implementations on the following repositories: <br>
-  - <a href="https://github.com/real-stanford/diffusion_policy">Diffusion Policy</a> <br>
-  - <a href="https://github.com/facebookresearch/ijepa" target="_blank">IJEPA</a> <br>
-  - <a href="https://github.com/facebookresearch/jepa" target="_blank">VJEPA</a> <br>
-  - <a href="https://github.com/facebookresearch/dino/" target="_blank">DINO</a> <br>
-  - <a href="https://github.com/facebookresearch/mae" target="_blank">MAE</a> <br>
+  Our implementation is based on the following repositories: 
+    <ul>
+        <li><a href="https://github.com/real-stanford/diffusion_policy">Diffusion Policy</a></li>
+        <li><a href="https://github.com/facebookresearch/ijepa" target="_blank">IJEPA</a></li>
+        <li><a href="https://github.com/facebookresearch/jepa" target="_blank">VJEPA</a></li>
+        <li><a href="https://github.com/facebookresearch/dino/" target="_blank">DINO</a></li>
+        <li><a href="https://github.com/facebookresearch/mae" target="_blank">MAE</a></li>
+    </ul>
 </p>
-
-
-
   
-</p>
 <hr class="rounded">
 <h2 class="title is-3">BibTeX</h2>
+If you find our work useful, please consider citing our paper:
 <p class="bibtex">
     @article{higuera2024sparsh, <br>
     &nbsp;&nbsp;title = {Sparsh: Self-supervised touch representations for vision-based tactile sensing}, <br>
@@ -391,6 +345,9 @@
     } <br>
 </p>
 
+
+
+  
 </section>
 </div>
 
@@ -411,5 +368,7 @@
 </footer>
 
 
+
+  
 </body>
 </html>
