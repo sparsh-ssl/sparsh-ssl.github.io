@@ -217,19 +217,19 @@
 </div>
 
 
-<!-- <hr class="rounded"> -->
-<!-- <div class="rows"> -->
-<!--   <h2 class="title is-3">Overview of ReKep</h2> -->
-<!--   <img src="media/figures/method.jpg" class="method-image" /> -->
-<!--   <p class="content has-text-justified">Given RGB-D observation and free-form language instruction, DINOv2 -->
-<!--     is used to propose keypoint candidates on fine-grained meaningful regions in the scene. The image overlaid -->
-<!--     with keypoints and the instruction are fed into GPT-4o to generate a series of ReKep constraints as python -->
-<!--     programs that specify desired relations between keypoints at different stages of the task and any -->
-<!--     requirement on the transitioning behaviors. Finally, a constrained optimization solver is used to obtain a -->
-<!--     dense sequence of end-effector actions in SE(3), subject to the generated constraints. -->
-<!--     <b>The entire pipeline does not involve any additional training or any task-specific data.</b> -->
-<!--   </p> -->
-<!-- </div> -->
+<hr class="rounded">
+<div class="rows">
+  <h2 class="title is-3">Overview of Sparsh</h2>
+  <img src="media/figures/ssl.png" class="method-image" />
+  <p class="content has-text-justified">
+    First, to address the scarcity of labeled and even unlabeled data in the tactile domain, 
+    we curate together new and existing vision-based tactile sensor datasets totaling ~661k samples. 
+    Second, we investigate self-supervised learning approaches, such as Masked Autoencoding (MAE), Self-Distillation (DINO and DINOv2), 
+    and Joint embedding Prediction (JEPA) to train the <span class="model">Sparsh</span> family of foundation models for general purpose touch representations. We find that background subtraction and tokenization 
+    of a small temporal window (~80 ms) of tactile images are crucial for learning generalizable and effective representations. 
+    We then evaluate the general-purpose utility of these representations on <span class="model">TacBench</span>, a benchmark of six tasks that span tactile perception.
+  </p>
+</div>
 
 <hr class="rounded">
 <div class="rows">
